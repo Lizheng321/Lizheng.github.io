@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小李的个人主页</title>
+    <!-- 引入科技感字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* --- 全局与背景样式 --- */
+        :root {
+            --primary-bg: #0a0e17;
+            --secondary-bg: #121a29;
+            --accent-color: #00f0ff;
+            --text-color: #e0e0e0;
+            --highlight-color: #7928ca;
+            --border-color: rgba(0, 240, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+
+            /* --- 核心修改：动态渐变背景 --- */
+            background: linear-gradient(
+                    -45deg,
+                    rgba(12, 16, 23, 1) 0%,
+                    rgba(18, 26, 41, 1) 25%,
+                    rgba(20, 30, 48, 1) 50%,
+                    rgba(18, 26, 41, 1) 75%,
+                    rgba(12, 16, 23, 1) 100%
+            );
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        /* 定义背景动画 */
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* --- 页面容器 (新增毛玻璃效果) --- */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto; /* 增加上下外边距 */
+            padding: 40px;
+            /* 毛玻璃效果 */
+            background-color: rgba(10, 14, 23, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); /* 兼容 Safari */
+            border-radius: 12px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        /* --- 标题样式 --- */
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 1em;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2.5em;
+        }
+
+        /* --- 个人头像 --- */
+        .profile-img {
+            display: block;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
+            object-fit: cover;
+        }
+
+        /* --- 文本段落 --- */
+        p {
+            text-align: justify;
+        }
+
+        /* --- 列表样式 --- */
+        ul, ol {
+            background-color: rgba(18, 26, 41, 0.5);
+            padding: 20px 30px;
+            border-radius: 8px;
+            border-left: 4px solid var(--highlight-color);
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* --- 链接样式 --- */
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        a:hover {
+            color: white;
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        a:hover::after {
+            width: 100%;
+        }
+
+        /* --- 表格样式 --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(18, 26, 41, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-family: 'Orbitron', sans-serif;
+            background-color: rgba(0, 240, 255, 0.1);
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        tr:hover {
+            background-color: rgba(121, 40, 202, 0.1);
+        }
+
+        /* --- 留言表单 --- */
+        .message-form {
+            background-color: rgba(18, 26, 41, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        .message-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .message-form input, .message-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: white;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .message-form input:focus, .message-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+
+        .message-form button {
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .message-form button:hover {
+            background-color: white;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        /* --- 页脚 --- */
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 页面标题 -->
+    <h1>小李的个人主页</h1>
+    <p style="text-align: center; font-size: 1.1em; color: #aaa;">欢迎来到小李的个人主页</p>
+
+    <!-- 关于我 section -->
+    <h2>关于我</h2>
+    <img src="https://c-ssl.duitang.com/uploads/item/20182/11/2018211122121_wXYWd.jpeg" alt="小李" class="profile-img">
+    <p>大家好!我叫小李,今年22岁,是一名大数据专业的大学生｡</p>
+    <p>我喜欢编写代码，阅读小说，热爱竞技游戏，爱打乒乓球｡我的座右铭是:"在尘埃里扎根，向烈日处生长。真正的强大，是于风暴中重塑自我，而非等待风暴过去。"</p>
+
+    <!-- 我的技能 section -->
+    <h2>我的技能</h2>
+    <ul>
+        <li>HTML 网页制作</li>
+        <li>Python 编程</li>
+        <li>Office 办公软件</li>
+        <li>摄影与修图</li>
+    </ul>
+
+    <!-- 我的学习计划 section -->
+    <h2>我的学习计划</h2>
+    <ol>
+        <li>学习 HTML 基础</li>
+        <li>学习 CSS 样式</li>
+        <li>学习 JavaScript 交互</li>
+        <li>完成一个完整的网站项目</li>
+    </ol>
+
+    <!-- 我喜欢的网站 section -->
+    <h2>我喜欢的网站</h2>
+    <p>以下是一些我经常访问的网站:</p>
+    <ul>
+        <li><a href="https://www.baidu.com/index.php?tn=75144485_4_dg&ch=1">百度</a> - 搜索引擎</li>
+        <li><a href="https://www.bilibili.com/">哔哩哔哩</a> - 学习视频</li>
+        <li><a href="https://www.deepseek.com/">deepseek</a> - AI大模型工具</li>
+    </ul>
+
+    <!-- 联系我 section -->
+    <h2>联系我</h2>
+    <table>
+        <tr>
+            <th>联系方式</th>
+            <th>内容</th>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td>xiaoli@example.com</td>
+        </tr>
+        <tr>
+            <td>电话</td>
+            <td>18999292929</td>
+        </tr>
+        <tr>
+            <td>地址</td>
+            <td>中国重庆市</td>
+        </tr>
+    </table>
+
+    <!-- 留言表单 section -->
+    <h2>给我留言</h2>
+    <div class="message-form">
+        <label for="name">你的名字:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">你的邮箱:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">留言内容:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">提交留言</button>
+    </div>
+
+    <!-- 页脚信息 -->
+    <div class="footer">
+        <p>版权所有 © 2026 小李 | 最后更新:2026年1月</p>
+    </div>
+</div>
+
+</body>
+</html>
